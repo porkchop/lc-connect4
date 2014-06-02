@@ -1,0 +1,32 @@
+{
+  "name": "leetcoin-connect4",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./app.js",
+    "test": "make test",
+    "mock": "node ./mock/app.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "express": "~3.4.8",
+    "morgan": "~1.0.0",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "ejs": "~0.8.5",
+    "passport": "0.2.0",
+    "passport-google": "0.3.0",
+    "express-partials": "0.2.0",
+    "socket.io": "0.9.16",
+    "passport.socketio": "3.0.1",
+    "lodash": "2.4.1",
+    "leetcoin": "latest"
+  },
+  "devDependencies": {
+    "should": "3.3.1",
+    "mocha": "1.18.2",
+    "proxyquire": "1.0.1"
+  },
+  "license": "MIT"
+}

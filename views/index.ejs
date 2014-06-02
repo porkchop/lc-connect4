@@ -1,0 +1,236 @@
+<h2>LEETCOIN Connect 4</h2>
+<a href="https://github.com/leetcoin/">source code available</a><br>
+<br><br>
+<h3>The wager is 100 Satoshi</h3>
+<br>
+<h3>Match <%= game.id %></h3>
+<br><br>
+
+<div id='player-authorize' style='display:none'>
+  Visit leetcoin to authorize this server.<br>
+  <div id='player-authorize-link'><a href='<%= game_link %>' target="new"><%= game_link %></a></div>
+</div>
+<div id='player-authorized' style='display:none'>
+  You are authorized and ready to play.
+</div>
+<br><br>
+
+<div id='other-player' style='display:none'>
+  Waiting for another player to join.<br>
+  <br><br>
+  Send your competition this link to play:<br>
+  <div id='game-link'><a href='<%= game_link %>'><%= game_link %></a></div>
+</div>
+
+<div id='your-move-X' style='display:none'>
+  Your move! Click a column to drop an 'X'.
+</div>
+<div id='your-move-O' style='display:none'>
+  Your move! Click a column to drop an 'O'.
+</div>
+<div id='their-move' style='display:none'>
+  Waiting for other player to move...
+</div>
+<div id='you-won'>
+  You won this game!
+</div>
+<div id='you-lost'>
+  You lost this game.
+</div>
+<div id='board' class='drop'>
+  <div class='t l r cell'><table><tr><td id='5-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='5-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='5-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='5-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='5-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='5-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='5-6'></td></tr></td></table></div>
+  
+  <div class='t l r cell'><table><tr><td id='4-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='4-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='4-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='4-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='4-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='4-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='4-6'></td></tr></td></table></div>
+  
+  <div class='t l r cell'><table><tr><td id='3-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='3-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='3-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='3-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='3-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='3-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='3-6'></td></tr></td></table></div>
+  
+  <div class='t l r cell'><table><tr><td id='2-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='2-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='2-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='2-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='2-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='2-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='2-6'></td></tr></td></table></div>
+  
+  <div class='t l r cell'><table><tr><td id='1-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='1-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='1-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='1-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='1-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='1-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='1-6'></td></tr></td></table></div>
+  
+  <div class='t l r cell'><table><tr><td id='0-0'></td></tr></td></table></div>
+  <div class='t c cell'><table><tr><td id='0-1'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='0-2'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='0-3'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='0-4'></td></tr></td></table></div>
+  <div class='t r cell'><table><tr><td id='0-5'></td></tr></td></table></div>
+  <div class='t l r cell'><table><tr><td id='0-6'></td></tr></td></table></div>
+</div>
+
+<br><br>
+<!-- a href="/logout">Log Out</a -->
+<div id='playAgain'>
+  <button onclick='playAgain()'>Play Again</button>
+</div>
+<br>
+<div id='unregister'>
+  <button onclick='unregister()'>Unregister</button>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script type='text/javascript'>
+  function updateGame() {      
+    var game = state.game;
+
+    for (var n = 0; n < game.board.length; n++) {
+      for (var m = 0; m < game.nRows; m++) {
+        var square = document.getElementById(m + '-' + n);
+        square.innerHTML = game.board[n][m] || ' ';
+        square.style.background = "white";
+      }
+    }
+
+    if (!!game.winner && !!game.winVector) {
+      for(var i = 0; i < game.winVector.length; i++) {
+        var n = game.winVector[i][0];
+        var m = game.winVector[i][1];
+        var square = document.getElementById(m + '-' + n);
+        if (game.winner == state.userId) {
+          square.style.background = "green";
+        } else {
+          square.style.background = "red";
+        }
+      }
+    }
+
+    var display = {
+      'board': 'block',
+      'your-move-X': 'none',
+      'your-move-O': 'none',
+      'their-move': 'none',
+      'other-player': 'none',
+      'you-won': 'none',
+      'you-lost': 'none',
+      'player-authorize': 'block',
+      'player-authorized': 'none',
+      'playAgain': 'none',
+      'unregister': 'none'
+    }; 
+
+    if (!game.player1 || !game.player2) {
+      display['other-player'] = 'block';
+      display['board'] = 'none';
+    } else if (game.winner == state.userId) {
+      display['you-won'] = 'block';
+      display['playAgain'] = 'block';
+      display['unregister'] = 'block';
+    } else if (game.winner) {
+      display['you-lost'] = 'block';
+      display['playAgain'] = 'block';
+      display['unregister'] = 'block';
+    } else if (isMyMove()) {
+      if(game.player1 == state.userId) display['your-move-X'] = 'block';
+      else display['your-move-O'] = 'block';
+    } else {
+      display['their-move'] = 'block';
+    }
+
+    if(game.player1PlayAgain && game.player1 == state.userId) display['playAgain'] = 'none';
+    else if(game.player2PlayAgain && game.player2 == state.userId) display['playAgain'] = 'none';
+
+    console.log(game)
+
+    if (isAuthorized()) {
+      display['player-authorize'] = 'none';
+      display['player-authorized'] = 'block';
+    }
+    
+    for (var label in display) {
+      document.getElementById(label).style.display = display[label];
+    }
+  };
+
+  function isAuthorized() {
+    var game = state.game;
+    return game.player1leetcoinKey == state.userId || game.player2leetcoinKey == state.userId;
+  };
+
+  function isMyMove() {
+    var game = state.game;
+    return game[game.turn] == state.userId;
+  }
+
+  function moveInColumn(n) {
+    socket.emit('move', n);      
+  }
+
+  function highlightSquare(m, n) {
+    for (var _n = 0; _n < n; _n++) {
+      for (var _m = 0; _m < m; _m++) {
+        if (m == _m && n == _n  && isMyMove()) {
+          if (!state.board[n][m]) {
+            color = 'lightblue';
+          } else {
+            color = 'lightgrey';
+          }
+        } else {
+          color = 'white';
+        }
+
+        document.getElementById(m + '-' + n).style['background-color'] = color;
+      }
+    }
+  }
+
+  function unregister() {
+    socket.emit('unregister');
+  }
+
+  function playAgain() {
+    socket.emit('playAgain');
+  }
+
+  var state = {
+    userId: '<%= userId %>',
+    game: <%- JSON.stringify(game) %>
+  };
+
+  var socket = io.connect('/<%= game.id %>');
+  
+  socket.on('game', function(game) {
+    state.game = game;
+    updateGame();
+  });
+  
+  updateGame();
+  
+  var game = state.game;
+  for (var n = 0; n < game.board.length; n++) {
+    for (var m = 0; m < game.nRows; m++) {
+      var square = document.getElementById(m + '-' + n);
+      square.onmouseover = new Function('highlightSquare(' + m + ',' + n + ')');
+      square.onclick = new Function('moveInColumn(' + n + ')');
+    }
+  }
+</script>
