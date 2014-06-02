@@ -5,7 +5,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var passport = require('passport')
-var GoogleStrategy = require('passport-google').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var partials = require('express-partials')
 var socketio = require('socket.io');
 var passportSocketIo = require("passport.socketio");
@@ -29,10 +29,11 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new GoogleStrategy({
-    returnURL: config.myURL + '/auth/google/return',
-    realm: config.myURL
+    clientID: config.GOOGLE_CLIENT_ID,
+    clientSecret: config.GOOGLE_CLIENT_SECRET,
+    callbackURL: config.myURL + '/auth/google/callback'
   },
-  function(identifier, profile, done) {
+  function(accessToken, refreshToken, profile, done) {
     var emailParts = profile.emails[0].value.split('@');
     var domain = emailParts[1];
     if(domain !== 'gmail.com') return done('leetcoin connect4 only works with a gmail login.')
@@ -93,12 +94,13 @@ server.listen(app.get('port'), function() {
 
 // [BEGIN] Routes
 app.get('/auth/google', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                                            'https://www.googleapis.com/auth/userinfo.email'] }),
   function(req, res) {
     res.redirect(req.session.originalUrl || '/');
   });
 
-app.get('/auth/google/return', 
+app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect(req.session.originalUrl || '/');

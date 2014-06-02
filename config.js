@@ -9,5 +9,7 @@ module.exports = {
   // Are we running on the development server?
   local_testing: !!process.env.LOCALTESTING,
   port: process.env.PORT || 3000,
-  myURL: process.env.MYURL || 'http://localhost:3000'
+  myURL: process.env.MYURL || 'http://localhost:3000',
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
 }

@@ -16,7 +16,7 @@
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
     "passport": "0.2.0",
-    "passport-google": "0.3.0",
+    "passport-google-oauth": "0.1.5",
     "express-partials": "0.2.0",
     "socket.io": "0.9.16",
     "passport.socketio": "3.0.1",
