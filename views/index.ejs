@@ -31,6 +31,9 @@
 <div id='their-move' style='display:none'>
   Waiting for other player to move...
 </div>
+<div id='draw'>
+  Draw game!
+</div>
 <div id='you-won'>
   You won this game!
 </div>
@@ -130,6 +133,7 @@
       'your-move-O': 'none',
       'their-move': 'none',
       'other-player': 'none',
+      'draw': 'none',
       'you-won': 'none',
       'you-lost': 'none',
       'player-authorize': 'block',
@@ -147,6 +151,10 @@
       display['unregister'] = 'block';
     } else if (game.winner) {
       display['you-lost'] = 'block';
+      display['playAgain'] = 'block';
+      display['unregister'] = 'block';
+    } else if (game.draw) {
+      display['draw'] = 'block';
       display['playAgain'] = 'block';
       display['unregister'] = 'block';
     } else if (isMyMove()) {

@@ -237,6 +237,11 @@ function initRealTimeChannel(channelId) {
             deaths = [1,0];
             ranks = [1599, 1601];
           }
+          else if(game.draw) {
+            kills = [0,0];
+            deaths = [0,0];
+            ranks = [1600, 1600];
+          }
 
           leetcoin.setMatchResults(game, 'leetcoinconnect4', player_keys, player_names, weapons, kills, deaths, ranks, function(err, res) {
             if(err) console.error(err);
@@ -255,7 +260,7 @@ function initRealTimeChannel(channelId) {
     });
 
     socket.on('playAgain', function() {
-      if(!game.winner) return;    // can't play again if the current round hasn't completed
+      if(!game.isGameOver()) return;    // can't play again if the current round hasn't completed
 
       if(game.player1.id == player.id) game.player1PlayAgain = true;
       else if(game.player2.id == player.id) game.player2PlayAgain = true;
