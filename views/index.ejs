@@ -186,10 +186,14 @@
   }
 
   function highlightSquare(m, n) {
-    for (var _n = 0; _n < n; _n++) {
-      for (var _m = 0; _m < m; _m++) {
-        if (m == _m && n == _n  && isMyMove()) {
-          if (!state.board[n][m]) {
+    var game = state.game;
+
+    if(!isMyMove() || game.winner) return;
+    
+    for (var _n = 0; _n < game.board.length; _n++) {
+      for (var _m = 0; _m < game.nRows; _m++) {
+        if (m == _m && n == _n) {
+          if (!game.board[n][m]) {
             color = 'lightblue';
           } else {
             color = 'lightgrey';
@@ -198,7 +202,7 @@
           color = 'white';
         }
 
-        document.getElementById(m + '-' + n).style['background-color'] = color;
+        document.getElementById(_m + '-' + _n).style.background = color;
       }
     }
   }
