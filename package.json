@@ -21,7 +21,7 @@
     "socket.io": "0.9.16",
     "passport.socketio": "3.0.1",
     "lodash": "2.4.1",
-    "leetcoin": "latest"
+    "leetcoin": "0.0.2"
   },
   "devDependencies": {
     "should": "3.3.1",
