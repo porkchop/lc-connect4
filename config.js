@@ -1,5 +1,5 @@
 module.exports = {
-  url: "dev01-dot-1337coin.appspot.com",
+  url: process.env.LCAPIURL || "dev01-dot-1337coin.appspot.com",
   // Developer key and secret, Obtainable here:  www.leetcoin.com/developer/
   developer_api_key: process.env.LCAPIKEY, // "xxxxxx-xxxxxx-xxxxxx-xxxxxx",
   developer_shared_secret: process.env.LCSHAREDSECRET, // "xxxxxxxx",
@@ -12,4 +12,4 @@ module.exports = {
   myURL: process.env.MYURL || 'http://localhost:3000',
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
-}
+};

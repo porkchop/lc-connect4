@@ -6,20 +6,8 @@
 <h3>Match <%= game.id %></h3>
 <br><br>
 
-<div id='player-authorize' style='display:none'>
-  Visit leetcoin to authorize this server.<br>
-  <div id='player-authorize-link'><a href='<%= game_link %>' target="new"><%= game_link %></a></div>
-</div>
-<div id='player-authorized' style='display:none'>
-  You are authorized and ready to play.
-</div>
-<br><br>
-
 <div id='other-player' style='display:none'>
   Waiting for another player to join.<br>
-  <br><br>
-  Send your competition this link to play:<br>
-  <div id='game-link'><a href='<%= game_link %>'><%= game_link %></a></div>
 </div>
 
 <div id='your-move-X' style='display:none'>
@@ -92,13 +80,6 @@
 
 <br><br>
 <!-- a href="/logout">Log Out</a -->
-<div id='playAgain'>
-  <button onclick='playAgain()'>Play Again</button>
-</div>
-<br>
-<div id='unregister'>
-  <button onclick='unregister()'>Unregister</button>
-</div>
 
 
 <script src="/socket.io/socket.io.js"></script>
@@ -135,11 +116,7 @@
       'other-player': 'none',
       'draw': 'none',
       'you-won': 'none',
-      'you-lost': 'none',
-      'player-authorize': 'block',
-      'player-authorized': 'none',
-      'playAgain': 'none',
-      'unregister': 'none'
+      'you-lost': 'none'
     }; 
 
     if (!game.player1 || !game.player2) {
@@ -147,16 +124,10 @@
       display['board'] = 'none';
     } else if (game.winner == state.userId) {
       display['you-won'] = 'block';
-      display['playAgain'] = 'block';
-      display['unregister'] = 'block';
     } else if (game.winner) {
       display['you-lost'] = 'block';
-      display['playAgain'] = 'block';
-      display['unregister'] = 'block';
     } else if (game.draw) {
       display['draw'] = 'block';
-      display['playAgain'] = 'block';
-      display['unregister'] = 'block';
     } else if (isMyMove()) {
       if(game.player1 == state.userId) display['your-move-X'] = 'block';
       else display['your-move-O'] = 'block';
@@ -164,24 +135,11 @@
       display['their-move'] = 'block';
     }
 
-    if(game.player1PlayAgain && game.player1 == state.userId) display['playAgain'] = 'none';
-    else if(game.player2PlayAgain && game.player2 == state.userId) display['playAgain'] = 'none';
-
     console.log(game)
 
-    if (isAuthorized()) {
-      display['player-authorize'] = 'none';
-      display['player-authorized'] = 'block';
-    }
-    
     for (var label in display) {
       document.getElementById(label).style.display = display[label];
     }
-  };
-
-  function isAuthorized() {
-    var game = state.game;
-    return game.player1leetcoinKey == state.userId || game.player2leetcoinKey == state.userId;
   };
 
   function isMyMove() {
@@ -193,7 +151,7 @@
     socket.emit('move', n);      
   }
 
-  function highlightColumn(m, n) {
+  function highlightColumn(n) {
     var game = state.game;
 
     if(!isMyMove() || game.winner) return;
@@ -209,14 +167,6 @@
         document.getElementById(_m + '-' + _n).style.background = color;
       }
     }
-  }
-
-  function unregister() {
-    socket.emit('unregister');
-  }
-
-  function playAgain() {
-    socket.emit('playAgain');
   }
 
   var state = {
@@ -237,7 +187,7 @@
   for (var n = 0; n < game.board.length; n++) {
     for (var m = 0; m < game.nRows; m++) {
       var square = document.getElementById(m + '-' + n);
-      square.onmouseover = new Function('highlightColumn(' + m + ',' + n + ')');
+      square.onmouseover = new Function('highlightColumn(' + n + ')');
       square.onclick = new Function('moveInColumn(' + n + ')');
     }
   }

@@ -11,13 +11,14 @@ function Game(params) {
   this.player1PlayAgain = false;
   this.player2PlayAgain = false;
 
-  this.server_key = params.key
-  this.server_api_key = params.apiKey
-  this.server_secret = params.apiSecret
+  this.match_key = params.matchKey;
+  // this.server_key = params.key
+  // this.server_api_key = params.apiKey
+  // this.server_secret = params.apiSecret
 
   // We need to store the leetcoin userids
-  this.player1leetcoinKey = params.player1leetcoinKey
-  this.player2leetcoinKey = params.player2leetcoinKey
+  // this.player1leetcoinKey = params.player1leetcoinKey;
+  // this.player2leetcoinKey = params.player2leetcoinKey;
 
   this.nRows = params.nRows || 6;
   this.nColumns = params.nColumns || 7;
@@ -48,7 +49,7 @@ Game.prototype.move = function(playerId, col) {
       || col >= this.nColumns
       || (playerId !== this.player1.id && playerId !== this.player2.id)   // isn't an active player
       || playerId != this[this.turn].id                                   // not this player's turn
-      || !(this.player1leetcoinKey && this.player2leetcoinKey)            // both players have not yet been activated at leetcoin
+      // || !(this.player1leetcoinKey && this.player2leetcoinKey)            // both players have not yet been activated at leetcoin
       || this.board[col].length === this.nRows)                           // column is already full
     return false;  // invalid move
 

@@ -12,7 +12,7 @@ var passportSocketIo = require("passport.socketio");
 var db = require('./db');
 var Leetcoin = require('leetcoin');
 var config = require('./config');
-var leetcoin = new Leetcoin(config.developer_shared_secret, config.developer_api_key, config.url, config.game_key);
+var leetcoin = new Leetcoin(config.developer_shared_secret, config.developer_api_key, config.url, config.game_key, config.proto);
 
 // [BEGIN] Initialization
 var app = express();
@@ -111,12 +111,12 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.get('/', ensureAuthOpenID, createOrLoadGame, checkAuthzLeetcoin, function(req, res) {
+app.get('/', ensureAuthOpenID, createOrLoadGame, broadcastGameState, function(req, res) {
   var game = req.game;
   res.render('index.ejs', {
     userId: req.user.id,
     game: game.wireSafe(),
-    game_link: 'https://' + config.url + '/server/view/' + game.server_key
+    game_link: 'https://' + config.url + '/server/view/' + game.match_key
   });
 });
 
@@ -134,71 +134,35 @@ function ensureAuthOpenID(req, res, next) {
 }
 
 function createOrLoadGame(req, res, next) {
-  var gameId = req.query.g;
+  var gameKey = req.query.g;
+
+  if(!gameKey) return res.render('error.ejs', {error:  'No such game'});
+
   var user = req.user;
-  var game = db.games.get(gameId);
+  var game = db.games.get(gameKey);
 
   if(!game) {
-    gameId = user.displayName + Math.floor(Math.random() * 10000);
-    var title = user.displayName + "'s game";
-    var return_link = config.myURL + '/?g=' + gameId;
-    leetcoin.serverCreate({
-      title: title,
-      hostAddress: config.myURL,
-      hostPort: config.port,
-      hostConnectionLink: return_link,
-      maxActivePlayers: 3,
-      maxAuthorizedPlayers: 3,
-      minimumBTCHold: 1000,
-      incrementBTC: 100,
-      serverRakeBTCPercentage: 0.01,
-      serverAdminUserKey: null,
-      leetcoinRakePercentage: 0.01,
-      allowNonAuthorizedPlayers: false,
-      stakesClass: 'LOW',
-      motdShowBanner: false,
-      motdBannerColor: 'F00',
-      motdBannerText: 'leetcoin-connect4'
-    }, function(err, server) {
-      if(err) return res.render('error.ejs', {error:  err});
+    var server = {
+      id: gameKey,
+      player1: user,
+      matchKey: gameKey
+    };
 
-      server.player1 = user;
-      server.id = gameId;
-      game = db.games.create(server);
-      debug(server, game);
+    game = db.games.create(server);
+    debug(server, game);
 
-      initRealTimeChannel(game.id);
-
-      loaded();
-    });
+    initRealTimeChannel(game.id);
   }
-  else loaded();
 
-  function loaded() {
-    if(!game.player2 && game.player1.id != user.id) game.player2 = user;
-    req.game = game;
-    next();
-  }
+  if(!game.player2 && game.player1.id != user.id) game.player2 = user;
+  req.game = game;
+  next();
 }
 
-function checkAuthzLeetcoin(req, res, next) {
-  var user = req.user;
+function broadcastGameState(req, res, next) {
   var game = req.game;
 
-  var countDown = 10;
-  function check() {
-    leetcoin.activatePlayer(user.id, game.server_secret, game.server_api_key, function(err, resAP) {
-      if(err) return res.render('error.ejs', {error:  err});
-      if(!resAP.player_authorized) return --countDown > 0 && setTimeout(check, 10000);
-
-      debug('player authorized');
-      if(user.id === game.player1.id) game.player1leetcoinKey = resAP.player_platformid;
-      else if(game.player2 && user.id === game.player2.id) game.player2leetcoinKey = resAP.player_platformid;
-      
-      io.of('/' + game.id).emit('game', game.wireSafe());
-    });
-  }
-  check();
+  io.of('/' + game.id).emit('game', game.wireSafe());
 
   next();
 }
@@ -209,13 +173,6 @@ function checkAuthzLeetcoin(req, res, next) {
 function initRealTimeChannel(channelId) {
   var channel = io.of('/' + channelId);
   var game = db.games.get(channelId);
-
-  function removePlayer(playerKey) {
-    leetcoin.deactivatePlayer(game, game[playerKey].id);
-    game[playerKey] = null;
-    game[playerKey + 'leetcoinKey'] = null;
-    game[playerKey + 'PlayAgain'] = false;
-  }
 
   channel.on('connection', function(socket) {
     var player = socket.handshake.user;
@@ -243,34 +200,12 @@ function initRealTimeChannel(channelId) {
             ranks = [1600, 1600];
           }
 
-          leetcoin.setMatchResults(game, 'leetcoinconnect4', player_keys, player_names, weapons, kills, deaths, ranks, function(err, res) {
+          leetcoin.setMatchMakerResults(game, 'leetcoinconnect4', player_keys, player_names, weapons, kills, deaths, ranks, function(err, res) {
             if(err) console.error(err);
           });
         }
         channel.emit('game', game.wireSafe());
       }
-    });
-
-    socket.on('unregister', function() {
-      if(game.winner || !(game.player1 && game.player2)) {
-        if(game.player1.id == player.id) removePlayer('player1');
-        else if(game.player2.id == player.id) removePlayer('player2');
-        channel.emit('game', game.wireSafe());
-      }
-    });
-
-    socket.on('playAgain', function() {
-      if(!game.isGameOver()) return;    // can't play again if the current round hasn't completed
-
-      if(game.player1.id == player.id) game.player1PlayAgain = true;
-      else if(game.player2.id == player.id) game.player2PlayAgain = true;
-
-      if(game.player1PlayAgain && game.player2PlayAgain) {
-        game.player1PlayAgain = game.player2PlayAgain = false;
-        game.reset();
-      }
-
-      channel.emit('game', game.wireSafe());
     });
   });
 }
