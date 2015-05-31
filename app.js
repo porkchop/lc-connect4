@@ -36,8 +36,8 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
     var emailParts = profile.emails[0].value.split('@');
     var domain = emailParts[1];
-    if(domain !== 'gmail.com') return done('leetcoin connect4 only works with a gmail login.')
-    profile.id = emailParts[0];
+    if(domain !== 'gmail.com') profile.id = profile.emails[0].value;
+    else profile.id = emailParts[0];
     return done(null, profile);
   }
 ));
