@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node ./app.js",
     "test": "make test",
-    "mock": "node ./mock/app.js"
+    "mock": "MOCK=1 node ./mock/app.js"
   },
   "engines": {
     "node": "0.10.x"
@@ -26,7 +26,8 @@
   "devDependencies": {
     "should": "3.3.1",
     "mocha": "1.18.2",
-    "proxyquire": "1.0.1"
+    "proxyquire": "1.0.1",
+    "passport-dummy": "0.0.1"
   },
   "license": "MIT"
 }

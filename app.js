@@ -28,19 +28,27 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-passport.use(new GoogleStrategy({
-    clientID: config.GOOGLE_CLIENT_ID,
-    clientSecret: config.GOOGLE_CLIENT_SECRET,
-    callbackURL: config.myURL + '/auth/google/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    var emailParts = profile.emails[0].value.split('@');
-    var domain = emailParts[1];
-    if(domain !== 'gmail.com') profile.id = profile.emails[0].value;
-    else profile.id = emailParts[0];
-    return done(null, profile);
-  }
-));
+if(process.env.MOCK) {
+  var DummyStrategy = require('passport-dummy').Strategy;
+  passport.use(new DummyStrategy(function(done) {
+      return done(null, {id: 'fake' + Math.floor(Math.random() * 10000)});
+    })
+  );
+} else {
+  passport.use(new GoogleStrategy({
+      clientID: config.GOOGLE_CLIENT_ID,
+      clientSecret: config.GOOGLE_CLIENT_SECRET,
+      callbackURL: config.myURL + '/auth/google/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+      var emailParts = profile.emails[0].value.split('@');
+      var domain = emailParts[1];
+      if(domain !== 'gmail.com') profile.id = profile.emails[0].value;
+      else profile.id = emailParts[0];
+      return done(null, profile);
+    }
+  ));
+}
 
 var sessionConfig = {
   secret: 'leetcoin connect4 super secret',
@@ -88,23 +96,32 @@ io.configure(function() {
 app.set('port', config.port);
 server.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+  if(process.env.MOCK) console.log('Standalone connect4 server running. Open two browsers to http://localhost:' + server.address().port + '?g=1 to play against yourself');
 });
 // [END] Initialization
 
 
 // [BEGIN] Routes
-app.get('/auth/google', 
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                                            'https://www.googleapis.com/auth/userinfo.email'] }),
-  function(req, res) {
-    res.redirect(req.session.originalUrl || '/');
-  });
+if(process.env.MOCK) {
+  app.get('/auth/google', 
+    passport.authenticate('dummy', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.redirect(req.session.originalUrl || '/');
+    });
+} else {
+  app.get('/auth/google', 
+    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                                              'https://www.googleapis.com/auth/userinfo.email'] }),
+    function(req, res) {
+      res.redirect(req.session.originalUrl || '/');
+    });
 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect(req.session.originalUrl || '/');
-  });
+  app.get('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+      res.redirect(req.session.originalUrl || '/');
+    });
+}
 
 app.get('/logout', function(req, res) {
   req.logout();

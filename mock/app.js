@@ -45,6 +45,13 @@ MockLeetcoin.prototype.setMatchResults = function(game, map_title, player_keys, 
   cb();
 }
 
+MockLeetcoin.prototype.setMatchMakerResults = function(game, map_title, player_keys, player_names, weapons, kills, deaths, ranks, cb) {
+ cb = cb || noop;
+
+  console.log('Mock setMatchMakerResults')
+  
+  cb();
+}
 
 var proxyquire = require('proxyquire');
 
