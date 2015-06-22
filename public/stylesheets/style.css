@@ -314,10 +314,19 @@ div.mark {
     border-bottom: 2px solid white;
     text-decoration: none;
     color: white; }
+    .blackbar.link .gh-logo {
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      margin: 0 6px -5px 0;
+      background: url("img/gh.svg"); }
     .blackbar.link:hover {
       background: white;
       color: black;
       border-bottom: 2px solid black; }
+      .blackbar.link:hover .gh-logo {
+        filter: invert(100%);
+        -webkit-filter: invert(100%); }
   .blackbar::-moz-selection {
     background: white;
     /* WebKit/border-left-image: none;k Browsers */

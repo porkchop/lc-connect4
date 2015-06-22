@@ -83,6 +83,8 @@ body {
       
       &.left {
         text-align: left;
+        
+        
       }
       
       &.right {
@@ -344,11 +346,26 @@ div.b {
     text-decoration: none;
     color: white;
     
+    .gh-logo {
+      
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      margin: 0 6px -5px 0;
+      background: url('img/gh.svg');
+      
+    }
+    
     &:hover {
       background: white;
       color: black;
       
       border-bottom: 2px solid black;
+      
+      .gh-logo {
+        filter: invert(100%);
+        -webkit-filter: invert(100%);
+      }
     }
   }
   
