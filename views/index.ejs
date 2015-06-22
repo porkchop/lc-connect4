@@ -1,32 +1,49 @@
-<h2>LEETCOIN Connect 4</h2>
-<a href="https://github.com/leetcoin/">source code available</a><br>
-<br><br>
-<h3>The wager is 100 Satoshi</h3>
-<br>
-<h3>Match <%= game.id %></h3>
-<br><br>
-
-<div id='other-player' style='display:none'>
-  Waiting for another player to join.<br>
+<div class="top">
+  <div class="top-row">
+  
+    <div class="left">
+      <span class="blackbar title big">Leet Connect 4</span><br>
+      <a href="https://github.com/leetcoin/" target="_blank" class="blackbar link">Source code</a>
+    </div>
+    
+    <div class="right">
+      
+      <span class="blackbar title">Wager: 100 Satoshi</span><br>
+      <span class="blackbar">Match <%= game.id %></span>
+    </div>
+    
+  </div>
+  
+  <div class="top-row">
+    
+  </div>
+  
 </div>
 
-<div id='your-move-X' style='display:none'>
-  Your move! Click a column to drop an 'X'.
+
+
+
+<div id='other-player' class="status-holder" style='display:none'>
+  <span class="blackbar status"><span>Waiting for another player to join.</span><br></span>
 </div>
-<div id='your-move-O' style='display:none'>
-  Your move! Click a column to drop an 'O'.
+
+<div id='your-move-X' class="status-holder" style='display:none'>
+  <span class="blackbar status"><span>Your move! Click a column to drop a blue piece.</span></span>
 </div>
-<div id='their-move' style='display:none'>
-  Waiting for other player to move...
+<div id='your-move-O' class="status-holder" style='display:none'>
+  <span class="blackbar status"><span>Your move! Click a column to drop a green piece.</span></span>
 </div>
-<div id='draw'>
-  Draw game!
+<div id='their-move' class="status-holder" style='display:none'>
+  <span class="blackbar status"><span>Waiting for other player to move...</span></span>
 </div>
-<div id='you-won'>
-  You won this game!
+<div class="status-holder" id='draw'>
+  <span class="blackbar status"><span>Draw game!</span></span>
 </div>
-<div id='you-lost'>
-  You lost this game.
+<div class="status-holder" id='you-won'>
+  <span class="blackbar status"><span>You won this game!</span></span>
+</div>
+<div class="status-holder" id='you-lost'>
+  <span class="blackbar status"><span>You lost this game.</span></span>
 </div>
 
 <!--
@@ -99,66 +116,66 @@
 <div id='board' class='drop'>
 
   <div class="col">
-    <div class='t l r cell'><span id='5-0'></span></div>
-    <div class='t l r cell'><span id='4-0'></span></div>
-    <div class='t l r cell'><span id='3-0'></span></div>
-    <div class='t l r cell'><span id='2-0'></span></div>
-    <div class='t l r cell'><span id='1-0'></span></div>
-    <div class='t l r cell'><span id='0-0'></span></div>
+    <div class='t l r cell'><div id='5-0'></div></div>
+    <div class='t l r cell'><div id='4-0'></div></div>
+    <div class='t l r cell'><div id='3-0'></div></div>
+    <div class='t l r cell'><div id='2-0'></div></div>
+    <div class='t l r cell'><div id='1-0'></div></div>
+    <div class='t l r cell'><div id='0-0'></div></div>
   </div>
   
   <div class="col"> 
-    <div class='t c cell'  ><span id='5-1'></span></div>
-    <div class='t c cell'  ><span id='4-1'></span></div>
-    <div class='t c cell'  ><span id='3-1'></span></div>
-    <div class='t c cell'  ><span id='2-1'></span></div>
-    <div class='t c cell'  ><span id='1-1'></span></div>
-    <div class='t c cell'  ><span id='0-1'></span></div>
+    <div class='t c cell'  ><div id='5-1'></div></div>
+    <div class='t c cell'  ><div id='4-1'></div></div>
+    <div class='t c cell'  ><div id='3-1'></div></div>
+    <div class='t c cell'  ><div id='2-1'></div></div>
+    <div class='t c cell'  ><div id='1-1'></div></div>
+    <div class='t c cell'  ><div id='0-1'></div></div>
   </div>
   
   <div class="col">
-    <div class='t r cell'  ><span id='5-2'></span></div>
-    <div class='t r cell'  ><span id='4-2'></span></div>
-    <div class='t r cell'  ><span id='3-2'></span></div>
-    <div class='t r cell'  ><span id='2-2'></span></div>
-    <div class='t r cell'  ><span id='1-2'></span></div>
-    <div class='t r cell'  ><span id='0-2'></span></div>
+    <div class='t r cell'  ><div id='5-2'></div></div>
+    <div class='t r cell'  ><div id='4-2'></div></div>
+    <div class='t r cell'  ><div id='3-2'></div></div>
+    <div class='t r cell'  ><div id='2-2'></div></div>
+    <div class='t r cell'  ><div id='1-2'></div></div>
+    <div class='t r cell'  ><div id='0-2'></div></div>
   </div>
   
   <div class="col">
-    <div class='t r cell'  ><span id='5-3'></span></div>
-    <div class='t r cell'  ><span id='4-3'></span></div>
-    <div class='t r cell'  ><span id='3-3'></span></div>
-    <div class='t r cell'  ><span id='2-3'></span></div>
-    <div class='t r cell'  ><span id='1-3'></span></div>
-    <div class='t r cell'  ><span id='0-3'></span></div>
+    <div class='t r cell'  ><div id='5-3'></div></div>
+    <div class='t r cell'  ><div id='4-3'></div></div>
+    <div class='t r cell'  ><div id='3-3'></div></div>
+    <div class='t r cell'  ><div id='2-3'></div></div>
+    <div class='t r cell'  ><div id='1-3'></div></div>
+    <div class='t r cell'  ><div id='0-3'></div></div>
   </div>
   
   <div class="col">
-    <div class='t r cell'  ><span id='5-4'></span></div>
-    <div class='t r cell'  ><span id='4-4'></span></div>
-    <div class='t r cell'  ><span id='3-4'></span></div>
-    <div class='t r cell'  ><span id='2-4'></span></div>
-    <div class='t r cell'  ><span id='1-4'></span></div>
-    <div class='t r cell'  ><span id='0-4'></span></div>
+    <div class='t r cell'  ><div id='5-4'></div></div>
+    <div class='t r cell'  ><div id='4-4'></div></div>
+    <div class='t r cell'  ><div id='3-4'></div></div>
+    <div class='t r cell'  ><div id='2-4'></div></div>
+    <div class='t r cell'  ><div id='1-4'></div></div>
+    <div class='t r cell'  ><div id='0-4'></div></div>
   </div>
   
   <div class="col">
-    <div class='t r cell'  ><span id='5-5'></span></div>
-    <div class='t r cell'  ><span id='4-5'></span></div>
-    <div class='t r cell'  ><span id='3-5'></span></div>
-    <div class='t r cell'  ><span id='2-5'></span></div>
-    <div class='t r cell'  ><span id='1-5'></span></div>
-    <div class='t r cell'  ><span id='0-5'></span></div>
+    <div class='t r cell'  ><div id='5-5'></div></div>
+    <div class='t r cell'  ><div id='4-5'></div></div>
+    <div class='t r cell'  ><div id='3-5'></div></div>
+    <div class='t r cell'  ><div id='2-5'></div></div>
+    <div class='t r cell'  ><div id='1-5'></div></div>
+    <div class='t r cell'  ><div id='0-5'></div></div>
   </div>
   
   <div class="col">
-    <div class='t l r cell'><span id='5-6'></span></div>
-    <div class='t l r cell'><span id='4-6'></span></div>
-    <div class='t l r cell'><span id='3-6'></span></div>
-    <div class='t l r cell'><span id='2-6'></span></div>
-    <div class='t l r cell'><span id='1-6'></span></div>
-    <div class='t l r cell'><span id='0-6'></span></div>
+    <div class='t l r cell'><div id='5-6'></div></div>
+    <div class='t l r cell'><div id='4-6'></div></div>
+    <div class='t l r cell'><div id='3-6'></div></div>
+    <div class='t l r cell'><div id='2-6'></div></div>
+    <div class='t l r cell'><div id='1-6'></div></div>
+    <div class='t l r cell'><div id='0-6'></div></div>
   </div>
   
   
@@ -183,10 +200,13 @@
         //square.style.background = "transparent";
         if (game.board[n][m] == 'X') {
           square.innerHTML = '&#9679';
+          
+          $(square).addClass('reduce')
           square.style.color = '#0575EB'
         } else if (game.board[n][m] == 'O') {
           
           square.innerHTML = '&#9679';
+          $(square).addClass('reduce')
           
           square.style.color = '#83DF55'
         }
