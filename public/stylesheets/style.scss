@@ -40,7 +40,8 @@ body {
   font-family: $KR, 'Helvetica', sans-serif;
   
   
-  
+  background: linear-gradient(45deg, #ff00c3 0%,#ff0048 100%); /* W3C */
+  /*
   background:
     linear-gradient(
       rgba(255, 56, 204, 1),
@@ -57,6 +58,8 @@ body {
       transparent
     );
   background-blend-mode: multiply;
+  
+  */
 }
 
 .top {
@@ -65,7 +68,6 @@ body {
   align-items: stretch;
   padding: 36px 24px 48px;
   margin: 0 auto;
-  max-width: 700px;
   
   .top-row {
     

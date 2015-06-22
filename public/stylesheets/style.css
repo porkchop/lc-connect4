@@ -82,8 +82,27 @@ html, body {
   src: url("/fonts/KlavikaWebDisplayUltraBlack.woff") format("woff"); }
 body {
   font-family: "Klavika-Regular", "Helvetica", sans-serif;
-  background: linear-gradient(#ff38cc, transparent), linear-gradient(-45deg, #b93aff, transparent), linear-gradient(45deg, #ff2729, transparent);
-  background-blend-mode: multiply; }
+  background: linear-gradient(45deg, #ff00c3 0%, #ff0048 100%);
+  /* W3C */
+  /*
+  background:
+    linear-gradient(
+      rgba(255, 56, 204, 1),
+      transparent
+    ),
+    linear-gradient(
+      -45deg,
+      rgba(185, 58, 255, 1),
+      transparent
+    ),
+    linear-gradient(
+      45deg,
+      rgba(255, 39, 41, 1),
+      transparent
+    );
+  background-blend-mode: multiply;
+  
+  */ }
 
 .top {
   display: -webkit-flex;
@@ -96,8 +115,7 @@ body {
       -ms-flex-align: stretch;
           align-items: stretch;
   padding: 36px 24px 48px;
-  margin: 0 auto;
-  max-width: 700px; }
+  margin: 0 auto; }
   .top .top-row {
     -webkit-flex: 1;
         -ms-flex: 1;
