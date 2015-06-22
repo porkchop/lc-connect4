@@ -86,19 +86,33 @@ body {
   background-blend-mode: multiply; }
 
 .top {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   padding: 36px 24px 48px;
   margin: 0 auto;
   max-width: 700px; }
   .top .top-row {
-    flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row no-wrap;
+    -webkit-flex-flow: row no-wrap;
+        -ms-flex-flow: row no-wrap;
+            flex-flow: row no-wrap;
     display: flex; }
     .top .top-row div {
-      flex: 1; }
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1; }
       .top .top-row div.left {
         text-align: left; }
       .top .top-row div.right {
@@ -109,30 +123,50 @@ body {
           font-family: "Klavika-Medium"; }
 
 #board {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   width: 350px;
   height: 300px;
   margin: 48px auto 0;
   border: 14px solid black;
   border-radius: 6px;
-  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.61);
-  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.61);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.61); }
   #board .col {
-    flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    align-items: stretch;
-    flex-flow: column nowrap; }
+    -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    -webkit-flex-flow: column nowrap;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap; }
     #board .col:hover > .cell {
       background-position: -950px 0;
       transition: background 0.45s steps(19); }
     #board .col .cell {
-      flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex;
-      justify-content: center;
-      align-items: stretch;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-align-items: stretch;
+          -ms-flex-align: stretch;
+              align-items: stretch;
       font-size: 85px;
       font-family: 'Helvetica', sans-serif;
       overflow: hidden;
@@ -146,15 +180,26 @@ body {
       padding: 4px 0 0 0;
       height: 50px; } }
       #board .col .cell > div {
-        flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
         color: white;
-        transform: scale(2);
+        -webkit-transform: scale(2);
+                transform: scale(2);
+        transition: -webkit-transform .1s ease-in-out, color .6s ease-in-out;
         transition: transform .1s ease-in-out, color .6s ease-in-out; }
         #board .col .cell > div.reduce {
-          transform: scale(1); }
+          -webkit-transform: scale(1);
+                  transform: scale(1); }
         #board .col .cell > div > span {
           display: inline-block; }
 
@@ -199,7 +244,8 @@ div.mark {
 .status-holder {
   max-width: 600px;
   margin: 0 auto;
-  transform: skewX(-10deg);
+  -webkit-transform: skewX(-10deg);
+          transform: skewX(-10deg);
   text-align: center; }
 
 .blackbar {
@@ -213,7 +259,8 @@ div.mark {
     font-size: 20px; }
     .blackbar.status > span {
       display: inline-block;
-      transform: skewX(10deg); }
+      -webkit-transform: skewX(10deg);
+              transform: skewX(10deg); }
   .blackbar.link {
     border-bottom: 2px solid white;
     text-decoration: none;
@@ -222,9 +269,13 @@ div.mark {
       background: white;
       color: black;
       border-bottom: 2px solid black; }
+  .blackbar::-moz-selection {
+    background: white;
+    /* WebKit/border-left-image: none;k Browsers */
+    color: black; }
   .blackbar::selection {
     background: white;
     /* WebKit/border-left-image: none;k Browsers */
     color: black; }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=to.css.map */
