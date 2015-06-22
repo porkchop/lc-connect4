@@ -220,8 +220,12 @@
         var square = document.getElementById(m + '-' + n);
         if (game.winner == state.userId) {
           //square.style.background = "green";
+          
+          $(square).addClass('winner')
         } else {
           //square.style.background = "red";
+          
+          $(square).addClass('winner')
         }
       }
     }
