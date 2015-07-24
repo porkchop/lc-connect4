@@ -1,6 +1,6 @@
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}
 
-html, body {
+html, body, #display-area {
   height: 100%;
 }
 
@@ -60,6 +60,184 @@ body {
   background-blend-mode: multiply;
   
   */
+}
+
+$blue: #00B2F7;
+$green: #00F380;
+$orange: #FC9B00;
+$red: #FF007F;
+$pinkred: #FF00BB;
+
+
+.full {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.button {
+  display: inline-block;
+  padding: 5px 20px;
+  border-radius: 40px;
+  border: none;
+  color: white;
+  background: black;
+  text-align: center;
+  cursor: pointer;
+  outline:none;
+  text-decoration: none;
+  
+  
+  @-webkit-keyframes buttonHover {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+  
+  @-webkit-keyframes buttonClick {
+    from {
+      transform: scale(1.04);
+    }
+    to {
+      transform: scale(.96);
+    }
+  }
+  
+  @-webkit-keyframes buttonOff {
+    from {
+      transform: scale(1.04);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  &:hover {
+    -webkit-animation: buttonHover .05s forwards;
+    &:active {
+      -webkit-animation: buttonClick .04s forwards;
+    } 
+  }
+  
+  &:active {
+    transform: scale(.95);
+  }
+  &:visited {
+    color: white;
+  }
+  &:link {
+    color: white;
+    
+  }
+  
+  -webkit-animation: buttonOff .1s forwards;
+  
+  
+  
+  &.black {
+    background: black;
+    &:active {
+      background: #3F3F3F;
+    }
+  }
+  
+  &.purple {
+    background: #D700F3;
+    &:active {
+      background: #A721BB;
+    }
+  }
+  
+  &.blue {
+    background: $blue;
+    &:active {
+      background: #009ACE;
+    }
+  }
+  
+  &.green {
+    background: $green;
+    &:active {
+      background: #00CE5D;
+    }
+  }
+  
+  &.orange {
+    background: $orange;
+    &:active {
+      background: #D38303;
+    }
+  }
+  
+  &.red {
+    background: $red;
+    &:active {
+      background: #CE0052;
+    }
+  }
+  
+  &.pinkred {
+    background: $pinkred;
+    &:active {
+      background: #D70093;
+    }
+  }
+  
+  &.profile {
+    width: 90%;
+    font-size: 18px;
+  }
+  
+  &.server {
+    width: 40%;
+    margin: 0 8px;
+  }
+  
+  &.create {
+    margin-bottom: 10px;
+  }
+  
+  &.submit {
+    margin: 1em 0;
+  }
+  
+  &.full {
+    width: 100%;
+  }
+  
+  &.rect {
+    border-radius: 0px;
+  }
+  
+  
+  
+  &.x {
+    padding: 0;
+    display: inline-block;
+    border-radius: 50%;
+    height: 50px + 4px;
+    width: 50px + 4px;
+    margin: 0 auto 14px;
+    text-align: center;
+    color: white;
+    background: -moz-linear-gradient(top, #ff00e3 0%, #ff0035 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff00e3), color-stop(100%,#ff0035)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ff00e3 0%,#ff0035 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ff00e3 0%,#ff0035 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ff00e3 0%,#ff0035 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ff00e3 0%,#ff0035 100%); /* W3C */
+    
+    img {
+      margin: 0 auto;
+    }
+  }
+  
 }
 
 .top {
